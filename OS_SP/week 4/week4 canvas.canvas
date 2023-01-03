@@ -1,0 +1,11 @@
+{
+	"nodes":[
+		{"id":"568b41923d8b4727","x":143,"y":-453,"width":250,"height":58,"color":"6","type":"text","text":"MAIN"},
+		{"id":"7ff0218d6ae5c59b","x":393,"y":-161,"width":400,"height":400,"type":"file","file":"OS_SP/week 4/Multicore architecture.md"},
+		{"id":"bfab8355365e1fbc","x":-325,"y":-161,"width":521,"height":400,"type":"file","file":"OS_SP/week 4/Concurrent Programming.md"}
+	],
+	"edges":[
+		{"id":"09ac8c98c9fe5c63","fromNode":"568b41923d8b4727","fromSide":"bottom","toNode":"bfab8355365e1fbc","toSide":"top"},
+		{"id":"1b869f6cbe7dd132","fromNode":"568b41923d8b4727","fromSide":"bottom","toNode":"7ff0218d6ae5c59b","toSide":"top"}
+	]
+}
