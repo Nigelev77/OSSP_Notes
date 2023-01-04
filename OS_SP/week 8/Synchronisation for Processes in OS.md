@@ -120,5 +120,33 @@ Solution with TestAndSet allows us to have a `lock` variable and if we change th
 
 
 
+# Inefficient Spinning
 
+Consider
+```c
+do 
+{ 
+	while (TestAndSet(&lock)) ; // wait until we successfully change lock from false to true 
+	[critical section] 
+	lock = FALSE; // Release lock [remainder section] 
+} while (true);
+```
+
+Guarantees mutual exclusion at high CPU usage until can enter cs
+
+Rather than having a process spin (_spinlock_), implement a sleep/wake mechanism where waiting processes sleep and when process finishes cs, wakes other processes up to enter
+
+Solution to this problem is implemented in OSs and they release the lock _during_ the `sleep()` call so with a guarantee that it will not be interrupted
+Lock is reacquired when woken up again just before we return from a `sleep()` call. This is implemented as a _sleeping lock_ called a _sempahore_
+
+
+# Semaphores
+
+-Simplifies synchronisation
+-Does not require busy waiting
+-Guaranteed **bounded waiting** and **progress**
+
+Consists of
+	-Semaphore type **S**, which records waiting processes and an int
+	-Two atomic operations to modify **S**, `wait()` and `signal()`
 
