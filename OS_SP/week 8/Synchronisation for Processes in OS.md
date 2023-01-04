@@ -55,3 +55,70 @@ Processes share variables
 	`int turn;` - indicates whose turn in cs
 	`bool wants_in[2];` - indicate if process wants to enter cs
 
+```c
+do 
+{ 
+	wants_in[i] = TRUE; // I want access... 
+	turn = j; // but, please, you go first 
+	
+	while (wants_in[j] && turn == j); // if you are waiting and it is your turn, I will wait. 
+	
+	//[critical section] 
+	
+	wants_in[i] = FALSE; // I no longer want access
+	
+	//[remainder section] 
+} while (TRUE);
+```
+
+When both processes interested, achieve fairness through `turn`, causing alternate access. If no turn variable, processes race to enter no process currently in cs
+
+Points to note
+	-What if we want to support >2 processes?
+	-If Pj goes to after critical section but before switching turns, Pi is waiting and wastes time/process power
+
+# Synchronisation hardware
+
+Many systems provide HW support for cs
+
+_Uniprocessors_ disable interrupts
+	-Currently running code executes without preemption
+	-Generally inefficient on multiprocessors
+	-Delay in one processor telling others to disable their interrupts
+Modern machines provide special atomic instructions
+	_TestAndSet_ - Tests mem address (ie read) and set 
+	_Swap_ - Swap contents of two mem addresses
+	Used to implement simple locks for mutual exclusion
+
+## General lock pattern
+
+```c
+do 
+{
+	[acquire lock]
+		[cs]
+	[release lock]
+		[rs]
+}while(true);
+```
+
+### TestAndSet
+
+```c
+
+bool TestAndSet(bool* target)
+{
+	bool org = *target; //Store original value
+	*target = true; //set variable to true
+	return org; //return original value
+}
+```
+Overall, sets a variable to true and returns original value
+Useful as it allows us to guarantee that only our thread changed the changed value to true.
+
+Solution with TestAndSet allows us to have a `lock` variable and if we change the value of `lock`, then we know only our process can enter since only we changed the value
+
+
+
+
+
