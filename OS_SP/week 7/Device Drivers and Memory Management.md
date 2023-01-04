@@ -161,7 +161,7 @@ _CPU throughput decreases thus negatively affects performance_
 Solutions:
 [*Working set model*](https://www.geeksforgeeks.org/techniques-to-handle-thrashing/) (locality based)
 	A _Locality_ is a set of pages used together, locality model assumes programs execute move from locality to locality.
-	Define _working set_ as pages used in most recent "X" page references and keep these in memory
+	Define _working set_ as pages used in most recent "X" page references and keep these in memory (thus allocate X frames for that process)
 	Achieves high CPU utilisation and prevents thrashing if X >= current locality size
 _Page-Fault Frequency_
 	-Give process more frames if page frequency rate high
