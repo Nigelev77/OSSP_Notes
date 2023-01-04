@@ -112,11 +112,14 @@ Works as most programs don't use that much
 **Efficient implementation tricky** as difference between memory and disk access immense
 
 ## Demand Paging
-Virtual memory implemented as _demand paging_: memory divided into _pages of same length_, with _validation bit_
+Virtual memory implemented as _demand paging_: memory divided into _pages of same length_, with _validation bit_. This bit describes if a page is valid (in memory) or invalid (not in memory or not in the address space of the process)
 
 Decisions to make:
 	-Which processes to _swap out_ which moves memory to disk and blocks process (swapper)
 	-_Which pages to move to disk_ when new page required (pager)
+
+For an OS using Demand Paging, to load a program, only pages required to load it are loaded. Thus a process begins execution with no pages and page faults occur often until enough are loaded in. [lazy loading](https://en.wikipedia.org//wiki/Demand_paging)
+
 
 **Page fault rate must be minimised** (page has to be fetched from disk) [Page Fault handling](https://www.geeksforgeeks.org/page-fault-handling-in-operating-system/)
 
