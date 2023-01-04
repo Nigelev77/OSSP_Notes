@@ -49,4 +49,9 @@ Should also not matter how fast or slow each process is
 ## Peterson's Solution
 [gfg](https://www.geeksforgeeks.org/petersons-algorithm-in-process-synchronization/)
 
-Two process solution assuming CPU's LOAD and STORE instructions are atomic (complete fully and cannot be stopped part way)
+Two process solution assuming CPU's LOAD and STORE instructions are **atomic** (complete fully and cannot be stopped part way)
+
+Processes share variables
+	`int turn;` - indicates whose turn in cs
+	`bool wants_in[2];` - indicate if process wants to enter cs
+
