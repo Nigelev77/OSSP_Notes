@@ -32,7 +32,7 @@ _Prerequisites_
 IO usually occurs after _fixed amount of time_. At this stage, appropriate to reschedule
 
 **Preemptive Scheduling**
-Processes forced to relinquish processor
+Processes forced to relinquish CPU
 
 ## Criteria
 
@@ -63,7 +63,16 @@ CPU bound processes cause long wait time
 FCFS with **preemption** is called **Round Robin**, allows jobs to share time on CPU
 
 ## Round Robin
-Similar to FCFS but pre-empts jobs to switch to next job to share the CPU
+Similar to FCFS but pre-empts processes to switch to next process to share the CPU
+
+✔️
+Fair to most processes
+
+❌ (I made these up btw lol)
+Potential higher turnaround time for longer processes (CPU bound)
+Potential high wait times for IO bound
+Long turnover time and response time to higher priority processes
+
 
 Requires a **time quantum (time before preemption)**.
 If the **time quantum** is:
