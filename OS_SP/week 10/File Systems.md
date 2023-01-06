@@ -89,15 +89,50 @@ Does **not** actually minimise # of head movements
 
 
 ## SCAN scheduling
-
-Head continuously scans disk from end to end (_lift strategy_)
+[gfg](https://www.geeksforgeeks.org/scan-elevator-disk-scheduling-algorithms/)
+Head continuously scans disk from end to end (_elevator strategy_) and services requests along the way
 
 
 ✔️
-Solves fairness from SSTF
+Better fairness compared to SSTF
 Solves starvation from SSTF
+Better than FCFS majority of time
+
+❌
+Complicated to implement
+Unfair in that requests ahead of head done before ones that arrive just before
 
 
+## CSCAN (Circular SCAN)
+**CSCAN** is a modified version in which it goes in the same direction and each time it hits the end, it goes to the other end and continues in the same direction
+
+✔️
+Works well with moderate and heavy loads
+Better response time and uniform waiting
+
+❌
+Unfair to service requests for tracks at extreme end
+More seeks than SCAN
 
 
+## LOOK scheduling
+Head is only moved as far as last request. So instead going to the end, if there are _no more requests in the direction of the head_, it turns around. Thus has the best performance since does not need to go to the end of disk.
 
+✔️
+Best seek time in these algorithms
+
+❌
+Difficult to implement
+
+![[Pasted image 20230106130842.png]]
+
+
+## CLOOK
+**CLOOK** is modified version of SCAN. Instead of changing direction as in LOOK, after no more requests in the direction of the head, it jumps to the other end and continues.
+
+✔️
+Good seek times
+
+❌
+Unfair
+![[Pasted image 20230106130834.png]]
