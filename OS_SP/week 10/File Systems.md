@@ -13,13 +13,13 @@ OS must map the logical to physical, imposing tree structure and assign blocks f
 Two main ways:
 **Linked list**: Each block contains pointer to next, but random access (`seek()`) is costly
 
-**Indexed allocation**: Store points in on location (_index block_). To cope with different file sizes, introduce _indirect index block_
+**Indexed allocation**: Store pointers in one location (_index block_). To cope with different file sizes, introduce _indirect index block_
 
 Index blocks are `inodes` in UNIX and store additional info about file (size, permissions etc)
 
 # FAT
 
-**F**(ile) **A**(llocation) **T**(ahble) 
+**F**(ile) **A**(llocation) **T**(able) 
 Useful for explaining filesystem concepts but modern systems are complicated
 
 Variants are FAT12, FAT16, FAT32 to define # of bits per entry
@@ -120,19 +120,48 @@ Head is only moved as far as last request. So instead going to the end, if there
 
 ✔️
 Best seek time in these algorithms
+No starvation
+Head will not move to end if no more requests in the direction (less unnecessary movement)
+Low variance for wait and response times
 
 ❌
 Difficult to implement
+Overhead of looking ahead of head
 
 ![[Pasted image 20230106130842.png]]
 
 
 ## CLOOK
-**CLOOK** is modified version of SCAN. Instead of changing direction as in LOOK, after no more requests in the direction of the head, it jumps to the other end and continues.
+**CLOOK** is modified version of SCAN. Instead of changing direction as in LOOK, after no more requests in the direction of the head, it jumps to first request on other side and continues.
 
 ✔️
-Good seek times
+Good seek times and comparable performance to LOOK
+No starvation
+If no requests to be served, head doesn't need to go to each end
+Minimal waiting time for tracks only visited
+low waiting and response variance
 
 ❌
-Unfair
+Overhead of looking ahead
 ![[Pasted image 20230106130834.png]]
+
+
+
+## Linux implementation
+
+Interoperability with other OSs require support for different file systems, thus Linux implements common interface for all filesystems
+
+Common interface called **virtual file system** which maintains:
+	`inode` for files and directories
+	caches, particularly for directories
+	superblocks for file systems
+All system calls go to **virtual file system** first and if necessary, vfs selects operation from real file system
+
+
+## Disk Scheduler
+
+Kernel makes it possible to have different schedulers depending on file system
+
+Default scheduler (_Completely fair queuing_) based on an _elevator_ strategy has separate disk request queues for each process queue served in Round Robin fashion
+
+Additional No-op (_No operation_) scheduler: implements FIFO, suitable for SSD's where access time is equal
