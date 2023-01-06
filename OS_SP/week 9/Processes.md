@@ -63,7 +63,7 @@ Generally, processes identified and managed via pid
 	Parent and children execute concurrently
 	Parent waits for children
 
-In **UNIX**, you can create new processes with system call `fork()` and exec system call used after to replace memory space with new program
+In **UNIX**, you can create new processes with system call `fork()` and `exec()` system call used after to replace memory space with new program
 
 
 ![[Pasted image 20230105133356.png|fork process lifecycle]]
@@ -71,7 +71,7 @@ In **UNIX**, you can create new processes with system call `fork()` and exec sys
 ## Process Termination
 
 After process returns, asks OS to delete (exit) it
-	Output data from child to parent in wait
+	Output data from child to parent in `wait()`
 	It's resources are deallocated
 Parent may terminate child processes via abort in situations such as:
 	Child exceeded allocated resouces
